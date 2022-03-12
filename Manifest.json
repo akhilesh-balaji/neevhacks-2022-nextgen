@@ -11,13 +11,10 @@
               "128": "icon.png"
           }
       },
-<<<<<<< Updated upstream
-=======
       "background": {
           "scripts": ["/js/background.js"],
           "persistent": false
       },
->>>>>>> Stashed changes
       "icons": {
           "16": "icon.png",
           "32": "icon.png",

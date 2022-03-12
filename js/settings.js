@@ -164,4 +164,8 @@
     document.getElementById("addingInput").addEventListener("keypress", addCustomWebsite);
   
   })();
-  
+
+// Save the current time to a variable 
+var currentTime = new Date();
+// Save the current hour to a variable
+var currentHour = currentTime.getHours();
