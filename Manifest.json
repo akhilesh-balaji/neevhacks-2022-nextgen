@@ -1,0 +1,21 @@
+  {
+      "name": "Sched",
+      "version": "1.0",
+      "description": "Turn your daily todo list into an eye-safe and mentally beneficial schedule.",
+      "browser_action": {
+          "default_popup": "popup.html",
+          "default_icon": {
+              "16": "icon.png",
+              "32": "icon.png",
+              "48": "icon.png",
+              "128": "icon.png"
+          }
+      },
+      "icons": {
+          "16": "icon.png",
+          "32": "icon.png",
+          "48": "icon.png",
+          "128": "icon.png"
+      },
+      "manifest_version": 2
+  }
