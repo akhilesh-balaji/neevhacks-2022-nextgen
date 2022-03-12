@@ -1,4 +1,35 @@
+* {
+    border-radius: 7px;
+}
+
 body {
     min-width: 500px;
     margin: 20px !important;
+}
+
+.item-input-wrapper {
+    width: 400px;
+    margin-right: 10px;
+}
+
+.bx--text-input__field-wrapper {
+    max-width: 200px;
+    min-width: 200px;
+}
+
+.emoji-priority-picker {
+    width: 150px;
+}
+
+.item-input-wrapper {
+    display: inline-flex;
+}
+
+.item-input-wrapper * {
+    margin-right: 5px;
+}
+
+label {
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
