@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://unpkg.com/carbon-components/css/carbon-components.min.css" rel="stylesheet"> -->
+    <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/carbon-components-svelte/css/g100.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <script src="/scripts/backend.js"></script>
+    <title>CarboTrack</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 300px;
+        }
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <h4 style="padding-top: 60px;">
+        How have you been managing your screen time?
+    </h4>
+
+    <br>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <canvas id="myChart" style="width:100%;max-width:800px;margin-left: auto; margin-right: auto; padding-top: 20px;"></canvas>
+    <br/>
+    <h3 id="streak-h3">Loading Data...</h3>
+
+    <script>
+        const today = ~~(Date.now() / (24 * 60 * 60 * 1000));
+        try {
+            JSON.parse(localStorage.getItem('tracker'));
+        } catch {
+            localStorage.setItem('tracker', '{}');
+        } finally {
+            const tracker = JSON.parse(localStorage.getItem('tracker'));
+            const streak = tracker[today] ? ~~localStorage.getItem('streak') : 0;
+            document.getElementById('streak-h3').innerHTML = `Current streak: ${streak} day${streak === 1 ? '' : 's'}`;
+            var xValues = ["9 Days Ago", "8 Days Ago", "7 Days Ago", "6 Days Ago", "5 Days Ago", "4 Days Ago", "3 Days Ago", "2 Days Ago", "Yesterday", "Today"];
+
+            new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        data: Array.from({
+                            length: 10
+                        }).map((_, i) => ~~tracker[today - i]).reverse(),
+                        borderColor: "red",
+                        fill: false
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        }
+    </script>
+
+    <br>
+    <br>
+
+
+    <br>
+
+    <div class="row" style="padding-top: 30px;">
+        <div class="column">
+            <h3>Number of Hours Productive<br><strong>2</strong></h3>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+        <div class="column">
+            <h3>Number of Total Hours<br><strong>2</strong></h3>
+        </div>
+    </div>
+</body>
+
+</html>
