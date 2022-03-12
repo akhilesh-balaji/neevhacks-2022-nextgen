@@ -15,20 +15,31 @@
 <body>
     <a href="./dashboard.html">Dashboard</a>
     <h4>📡 What's on the radar today?</h4>
-    <!-- <div>
+    <form>
+        <div class="bx--text-input__field-wrapper">
+            <label for="time-range-input-item" class="bx--label">Working time range</label>
+            <input id="time-range-input-item" type="text" class="bx--text-input pref-text-input" placeholder="hh:mm-hh:mm" required pattern="[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}" />
+        </div>
+        <div class="bx--text-input__field-wrapper">
+            <!-- <label for="time-range-input-item" class="bx--label">Working time range</label> -->
+            <input id="break1-time-range-input-item" type="text" class="bx--text-input pref-text-input" placeholder="1st break break" required pattern="[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}" />
+            <input id="break2-time-range-input-item" type="text" class="bx--text-input pref-text-input" placeholder="2nd break break" required pattern="[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}" />
+        </div>
+        <!-- <button id="submit-pref" type="submit" class="bx--btn bx--btn--secondary">Submit</button> -->
+        <!-- <div>
         <legend class="lefties">Task</legend>
         <legend>Screen time?</legend>
     </div> -->
-    <div class="bx--form-item item-toggle-wrapper bx--text-input-wrapper">
-        <div class="item-input-wrapper">
-            <div class="bx--text-input__field-wrapper">
-                <!-- <label for="text-input-item-1" class="bx--label">Text Input label</label> -->
-                <input id="text-input-item-1" type="text" class="bx--text-input" placeholder="Insert item here" />
-            </div>
-            <div class="bx--form-item item-toggle-wrapper">
-                <!-- <label for="smalltoggle1" class="bx--label">Screen?</label> -->
-                <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle1" type="checkbox" />
-                <label class="bx--toggle-input__label" for="smalltoggle1" aria-label="screen time toggle">
+        <div class="bx--form-item item-toggle-wrapper bx--text-input-wrapper">
+            <div class="item-input-wrapper">
+                <div class="bx--text-input__field-wrapper">
+                    <!-- <label for="text-input-item-1" class="bx--label">Text Input label</label> -->
+                    <input id="text-input-item-1" type="text" class="bx--text-input" placeholder="Insert item here" />
+                </div>
+                <div class="bx--form-item item-toggle-wrapper">
+                    <!-- <label for="smalltoggle1" class="bx--label">Screen?</label> -->
+                    <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle1" type="checkbox" />
+                    <label class="bx--toggle-input__label" for="smalltoggle1" aria-label="screen time toggle">
             <span class="bx--toggle__switch">
               <svg
                 class="bx--toggle__check"
@@ -40,12 +51,12 @@
               </svg>
             </span>
           </label>
-            </div>
-            <div class="bx--form-item emoji-priority-picker">
-                <div class="bx--select">
-                    <!-- <label for="select-id" class="bx--label">Priority</label> -->
-                    <div class="bx--select-input__wrapper">
-                        <select id="select-id0" class="bx--select-input">
+                </div>
+                <div class="bx--form-item emoji-priority-picker">
+                    <div class="bx--select">
+                        <!-- <label for="select-id" class="bx--label">Priority</label> -->
+                        <div class="bx--select-input__wrapper">
+                            <select id="select-id0" class="bx--select-input">
                 <option
                   class="bx--select-option"
                   value=""
@@ -61,28 +72,28 @@
                 <option class="bx--select-option" value="priority4">🟢</option>
                 <option class="bx--select-option" value="priority5">🔵</option>
               </select>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path>
               </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="bx--form-item estimated-time-taken">
+                    <div data-numberinput class="bx--number">
+                        <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
+                        <div class="bx--number__input-wrapper">
+                            <input id="time-input-hrs0" type="number" min="0" max="5" value="1" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bx--form-item estimated-time-taken">
-                <div data-numberinput class="bx--number">
-                    <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
-                    <div class="bx--number__input-wrapper">
-                        <input id="time-input-hrs0" type="number" min="0" max="5" value="1" />
-                    </div>
+            <div class="item-input-wrapper">
+                <div class="bx--text-input__field-wrapper">
+                    <input id="text-input-item-2" type="text" class="bx--text-input" placeholder="Insert item here" />
                 </div>
-            </div>
-        </div>
-        <div class="item-input-wrapper">
-            <div class="bx--text-input__field-wrapper">
-                <input id="text-input-item-2" type="text" class="bx--text-input" placeholder="Insert item here" />
-            </div>
-            <div class="bx--form-item item-toggle-wrapper">
-                <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle2" type="checkbox" />
-                <label class="bx--toggle-input__label" for="smalltoggle2" aria-label="screen time toggle">
+                <div class="bx--form-item item-toggle-wrapper">
+                    <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle2" type="checkbox" />
+                    <label class="bx--toggle-input__label" for="smalltoggle2" aria-label="screen time toggle">
           <span class="bx--toggle__switch">
             <svg
               class="bx--toggle__check"
@@ -94,12 +105,12 @@
             </svg>
           </span>
         </label>
-            </div>
-            <div class="bx--form-item emoji-priority-picker">
-                <div class="bx--select">
-                    <!-- <label for="select-id" class="bx--label">Priority</label> -->
-                    <div class="bx--select-input__wrapper">
-                        <select id="select-id1" class="bx--select-input">
+                </div>
+                <div class="bx--form-item emoji-priority-picker">
+                    <div class="bx--select">
+                        <!-- <label for="select-id" class="bx--label">Priority</label> -->
+                        <div class="bx--select-input__wrapper">
+                            <select id="select-id1" class="bx--select-input">
               <option
                 class="bx--select-option"
                 value=""
@@ -115,28 +126,28 @@
               <option class="bx--select-option" value="priority4">🟢</option>
               <option class="bx--select-option" value="priority5">🔵</option>
             </select>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path>
             </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="bx--form-item estimated-time-taken">
+                    <div data-numberinput class="bx--number">
+                        <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
+                        <div class="bx--number__input-wrapper">
+                            <input id="time-input-hrs1" type="number" min="0" max="5" value="1" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bx--form-item estimated-time-taken">
-                <div data-numberinput class="bx--number">
-                    <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
-                    <div class="bx--number__input-wrapper">
-                        <input id="time-input-hrs1" type="number" min="0" max="5" value="1" />
-                    </div>
+            <div class="item-input-wrapper">
+                <div class="bx--text-input__field-wrapper">
+                    <input id="text-input-item-3" type="text" class="bx--text-input" placeholder="Insert item here" />
                 </div>
-            </div>
-        </div>
-        <div class="item-input-wrapper">
-            <div class="bx--text-input__field-wrapper">
-                <input id="text-input-item-3" type="text" class="bx--text-input" placeholder="Insert item here" />
-            </div>
-            <div class="bx--form-item item-toggle-wrapper">
-                <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle3" type="checkbox" />
-                <label class="bx--toggle-input__label" for="smalltoggle3" aria-label="screen time toggle">
+                <div class="bx--form-item item-toggle-wrapper">
+                    <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle3" type="checkbox" />
+                    <label class="bx--toggle-input__label" for="smalltoggle3" aria-label="screen time toggle">
           <span class="bx--toggle__switch">
             <svg
               class="bx--toggle__check"
@@ -148,12 +159,12 @@
             </svg>
           </span>
         </label>
-            </div>
-            <div class="bx--form-item emoji-priority-picker">
-                <div class="bx--select">
-                    <!-- <label for="select-id" class="bx--label">Priority</label> -->
-                    <div class="bx--select-input__wrapper">
-                        <select id="select-id2" class="bx--select-input">
+                </div>
+                <div class="bx--form-item emoji-priority-picker">
+                    <div class="bx--select">
+                        <!-- <label for="select-id" class="bx--label">Priority</label> -->
+                        <div class="bx--select-input__wrapper">
+                            <select id="select-id2" class="bx--select-input">
               <option
                 class="bx--select-option"
                 value=""
@@ -169,28 +180,28 @@
               <option class="bx--select-option" value="priority4">🟢</option>
               <option class="bx--select-option" value="priority5">🔵</option>
             </select>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path>
             </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="bx--form-item estimated-time-taken">
+                    <div data-numberinput class="bx--number">
+                        <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
+                        <div class="bx--number__input-wrapper">
+                            <input id="time-input-hrs3" type="number" min="0" max="5" value="1" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bx--form-item estimated-time-taken">
-                <div data-numberinput class="bx--number">
-                    <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
-                    <div class="bx--number__input-wrapper">
-                        <input id="time-input-hrs3" type="number" min="0" max="5" value="1" />
-                    </div>
+            <div class="item-input-wrapper">
+                <div class="bx--text-input__field-wrapper">
+                    <input id="text-input-item-4" type="text" class="bx--text-input" placeholder="Insert item here" />
                 </div>
-            </div>
-        </div>
-        <div class="item-input-wrapper">
-            <div class="bx--text-input__field-wrapper">
-                <input id="text-input-item-4" type="text" class="bx--text-input" placeholder="Insert item here" />
-            </div>
-            <div class="bx--form-item item-toggle-wrapper">
-                <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle4" type="checkbox" />
-                <label class="bx--toggle-input__label" for="smalltoggle4" aria-label="screen time toggle">
+                <div class="bx--form-item item-toggle-wrapper">
+                    <input class="bx--toggle-input bx--toggle-input--small" id="smalltoggle4" type="checkbox" />
+                    <label class="bx--toggle-input__label" for="smalltoggle4" aria-label="screen time toggle">
           <span class="bx--toggle__switch">
             <svg
               class="bx--toggle__check"
@@ -202,12 +213,12 @@
             </svg>
           </span>
         </label>
-            </div>
-            <div class="bx--form-item emoji-priority-picker">
-                <div class="bx--select">
-                    <!-- <label for="select-id" class="bx--label">Priority</label> -->
-                    <div class="bx--select-input__wrapper">
-                        <select id="select-id3" class="bx--select-input">
+                </div>
+                <div class="bx--form-item emoji-priority-picker">
+                    <div class="bx--select">
+                        <!-- <label for="select-id" class="bx--label">Priority</label> -->
+                        <div class="bx--select-input__wrapper">
+                            <select id="select-id3" class="bx--select-input">
               <option
                 class="bx--select-option"
                 value=""
@@ -223,23 +234,25 @@
               <option class="bx--select-option" value="priority4">🟢</option>
               <option class="bx--select-option" value="priority5">🔵</option>
             </select>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform" xmlns="http://www.w3.org/2000/svg" class="bx--select__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path>
             </svg>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="bx--form-item estimated-time-taken">
-                <div data-numberinput class="bx--number">
-                    <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
-                    <div class="bx--number__input-wrapper">
-                        <input id="time-input-hrs4" type="number" min="0" max="5" value="1" />
+                <div class="bx--form-item estimated-time-taken">
+                    <div data-numberinput class="bx--number">
+                        <!-- <label for="time-input-hrs0" class="bx--label"></label> -->
+                        <div class="bx--number__input-wrapper">
+                            <input id="time-input-hrs4" type="number" min="0" max="5" value="1" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <button class="bx--btn bx--btn--primary" type="button" id="computeBtn">▶</button>
+        <button class="bx--btn bx--btn--primary" type="button" id="computeBtn">▶</button>
+    </form>
+
 
     <script src="scripts/schedulealgorithm.js"></script>
 

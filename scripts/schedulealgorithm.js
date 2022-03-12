@@ -28,6 +28,26 @@ const computeSchedule = () => {
     const task3_time = parseInt(document.getElementById("time-input-hrs3").value);
     const task4_time = parseInt(document.getElementById("time-input-hrs4").value);
 
+    const break1_time_range = document.getElementById("break1-time-range-input-item").value;
+    const break2_time_range = document.getElementById("break2-time-range-input-item").value;
+    const working_time_range = document.getElementById("time-range-input-item").value;
+
+    // values of time ranges are returned as strings, of the regex format [0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}
+    // so we need to split the string into two parts, and then convert the strings to numbers, and assign them to variables
+    const break1_time_range_start = ((parseInt(break1_time_range.split("-")[0].split(":")[1])) / 60) + parseInt(break1_time_range.split("-")[0].split(":")[0]);
+    const break1_time_range_end = ((parseInt(break1_time_range.split("-")[1].split(":")[1])) / 60) + parseInt(break1_time_range.split("-")[1].split(":")[0]);
+    const break2_time_range_start = ((parseInt(break2_time_range.split("-")[0].split(":")[1])) / 60) + parseInt(break2_time_range.split("-")[0].split(":")[0]);
+    const break2_time_range_end = ((parseInt(break2_time_range.split("-")[1].split(":")[1])) / 60) + parseInt(break2_time_range.split("-")[1].split(":")[0]);
+    const working_time_range_start = ((parseInt(working_time_range.split("-")[0].split(":")[1])) / 60) + parseInt(working_time_range.split("-")[0].split(":")[0]);
+    const working_time_range_end = ((parseInt(working_time_range.split("-")[1].split(":")[1])) / 60) + parseInt(working_time_range.split("-")[1].split(":")[0]);
+
+    console.log(break1_time_range_start);
+    console.log(break1_time_range_end);
+    console.log(break2_time_range_start);
+    console.log(break2_time_range_end);
+    console.log(working_time_range_start);
+    console.log(working_time_range_end);
+
     let tasks = [task1, task2, task3, task4];
     let tasks_sct = [task1_sct, task2_sct, task3_sct, task4_sct];
     let tasks_priority = [task1_priority, task2_priority, task3_priority, task4_priority];
@@ -40,8 +60,6 @@ const computeSchedule = () => {
     let sortedTasks = tasks.sort((a, b) => {
         return tasks_priority.indexOf(a) - tasks_priority.indexOf(b);
     });
-
-    // if there are two or more recurring tasks using sct, then put one non-sct tasks in between
 
     let sortedTasksSct = tasks_sct.sort((a, b) => {
         return tasks_priority.indexOf(a) - tasks_priority.indexOf(b);
@@ -67,7 +85,7 @@ const computeSchedule = () => {
                     console.log(i + j, sortedTasksSct.length);
                     console.log(sortedTasksSct[i + j], sortedTasksSct.length);
                     if (sortedTasksSct[i + j] != sortedTasksSct[i - 1]) {
-                        if (schedule.indexOf(sortedTasks[i + j]) == -1) { // Add this check to item array
+                        if (schedule.indexOf(sortedTasks[i + j]) == -1) {
                             schedule.push(sortedTasks[i + j]);
                             if (schedule.indexOf(item[0]) == -1)
                                 schedule.push(item[0]);
@@ -78,44 +96,17 @@ const computeSchedule = () => {
             }
         }
     }
-
-    // const sortScheduleSct = () => {
-    //     for (let i = 1; i < sortedTasksSct.length; i++) {
-    //         console.log(i);
-    //         if (sortedTasksSct[i] != sortedTasksSct[i - 1]) { // not equal to SCHEDULE
-    //             if (schedule.indexOf(sortedTasks[i]) == -1) {
-    //                 schedule.push(sortedTasks[i]);
-    //             }
-    //         } else {
-    //             item.push(sortedTasks[i]);
-    //             for (let j = 1; i + j < sortedTasksSct.length; j++) {
-    //                 console.log(i + j, sortedTasksSct.length);
-    //                 console.log(sortedTasks[i + j], sortedTasksSct.length);
-    //                 if (sortedTasksSct[i + j] != sortedTasksSct[i - 1]) { // not equal to SCHEDULE
-    //                     if (schedule.indexOf(sortedTasks[i + j]) == -1) {
-    //                         schedule.push(sortedTasks[i + j]);
-    //                         schedule.push(item[0]);
-    //                         break;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // [a, b, c, d]
-
     sortScheduleSct();
+    console.log(schedule);
+
+    const sortScheduleTime = () => {
+
+    }
+
+    // till when can you do work?
+    // define the set breaks
+    // is there enough time to do it?
 
     console.log(schedule);
-}
 
-// const sortScheduleSct = () => {
-//     for (let i = 0; i < sortedTasksSct.length; i++) {
-//         if (sortedTasksSct[i] != sortedTasksSct[i - 1]) {
-//             return (sortedTasks[i]);
-//         } else {
-//             return (i + 1);
-//         }
-//     }
-// }
+}
