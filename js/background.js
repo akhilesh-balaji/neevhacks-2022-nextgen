@@ -24,7 +24,6 @@
           websites = items.defaultWebsites;
         }
   
-        //Then load the customs websites to block
         if(items.customWebsites === undefined){
           storage.local.set({"customWebsites": []});
         }

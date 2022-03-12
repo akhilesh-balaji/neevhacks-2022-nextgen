@@ -5,96 +5,237 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="https://unpkg.com/carbon-components/css/carbon-components.min.css" rel="stylesheet"> -->
-    <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/carbon-components-svelte/css/g100.css" />
-    <link rel="stylesheet" href="styles/styles.css" />
-    <script src="/scripts/backend.js"></script>
-    <title>CarboTrack</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        
-        .column {
-            float: left;
-            width: 50%;
-            padding: 10px;
-            height: 300px;
-        }
-        
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <title>Progress</title>
 </head>
 
 <body>
-
-
-    <h4 style="padding-top: 60px;">
-        How have you been managing your screen time?
-    </h4>
-
-    <br>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-    <canvas id="myChart" style="width:100%;max-width:800px;margin-left: auto; margin-right: auto; padding-top: 20px;"></canvas>
-    <br/>
-    <h3 id="streak-h3">Loading Data...</h3>
-
+    <h1>Dashboard</h1>
+    <p>How much time have you spent in front of a screen this week?</p>
+    <h2 class="ex1">Graph of Screen Time Usage this week</h2>
+    
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
     <script>
-        const today = ~~(Date.now() / (24 * 60 * 60 * 1000));
-        try {
-            JSON.parse(localStorage.getItem('tracker'));
-        } catch {
-            localStorage.setItem('tracker', '{}');
-        } finally {
-            const tracker = JSON.parse(localStorage.getItem('tracker'));
-            const streak = tracker[today] ? ~~localStorage.getItem('streak') : 0;
-            document.getElementById('streak-h3').innerHTML = `Current streak: ${streak} day${streak === 1 ? '' : 's'}`;
-            var xValues = ["9 Days Ago", "8 Days Ago", "7 Days Ago", "6 Days Ago", "5 Days Ago", "4 Days Ago", "3 Days Ago", "2 Days Ago", "Yesterday", "Today"];
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
 
-            new Chart("myChart", {
-                type: "line",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        data: Array.from({
-                            length: 10
-                        }).map((_, i) => ~~tracker[today - i]).reverse(),
-                        borderColor: "red",
-                        fill: false
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false
-                    }
-                }
-            });
-        }
+            // The data for our dataset
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'Time spent on screen',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
     </script>
-
-    <br>
-    <br>
-
-
-    <br>
-
-    <div class="row" style="padding-top: 30px;">
-        <div class="column">
-            <h3>Number of Hours Productive<br><strong>2</strong></h3>
-        </div>
+    <script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                label: '# of time spent on site',
+                data: [8, 10, 6, 7, 11, 12, 13],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+    <div class="container">
+        <canvas id="progressChart"></canvas>
     </div>
-    <div class="row" style="padding-top: 30px;">
-        <div class="column">
-            <h3>Number of Total Hours<br><strong>2</strong></h3>
-        </div>
+
+
+
+    <link href="https://unpkg.com/carbon-components/css/carbon-components.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
+    <table class="bx--data-table  bx--data-table--zebra  ">
+        <thead>
+            <tr>
+                <th>
+
+                    <span class="bx--table-header-label">Sites most frequently visited</span>
+                </th>
+                <th>
+
+                    <span class="bx--table-header-label">Time spent</span>
+                </th>
+                <th>
+
+                    <span class="bx--table-header-label">Average time spent</span>
+                </th>
+                <th>
+
+                    <span class="bx--table-header-label">Total time away from screen</span>
+                </th>
+                <th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>
+
+                    (1) YouTube.com
+                </td>
+
+                <td>
+
+                    3.5 hours
+                </td>
+
+                <td>
+
+                    2.1 hours per site!
+                </td>
+                >
+                <td>
+                    8 hours
+
+
+
+                    <tr>
+
+                        <td>
+
+                            (2) Unsplash.com
+                        </td>
+
+                        <td>
+
+                            2.5 hours
+                        </td>
+
+                        <td>
+                            —
+
+                        </td>
+
+                        <td>
+                            —
+
+                        </td>
+
+
+                        <tr>
+
+                            <td>
+
+                                (3) friv.com
+                            </td>
+
+                            <td>
+
+                                2 hours
+                            </td>
+
+                            <td>
+                                —
+                            </td>
+
+                            <td>
+
+                                —
+                            </td>
+
+
+
+                            <tr>
+
+                                <td>
+
+                                    (4) Amazon.in
+                                </td>
+
+                                <td>
+
+                                    1.5 hours
+                                </td>
+
+                                <td>
+                                    —
+
+                                </td>
+
+                                <td>
+
+                                    —
+                                </td>
+
+
+
+                                <tr>
+
+                                    <td>
+                                        (5) myntra.com
+                                    </td>
+
+                                    <td>
+
+                                        1 hour
+                                    </td>
+
+                                    <td>
+                                        —
+
+                                    </td>
+
+                                    <td>
+                                        —
+
+                                    </td>
+                                </tr>
+                            </tr>
+                        </tr>
+                    </tr>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
     </div>
+
+
+    
 </body>
 
 </html>
