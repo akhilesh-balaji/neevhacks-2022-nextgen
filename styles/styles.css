@@ -33,3 +33,7 @@ label {
     padding-bottom: 0;
     margin-bottom: 0;
 }
+
+.bx--number__input-wrapper {
+    max-width: 20px;
+}
