@@ -13,8 +13,8 @@
                     { "url": "linkedin.com", "on": true },
                     { "url": "instagram.com", "on": true },
                     { "url": "youtube.com", "on": true },
+                    { "url": "dailymotion.com", "on": true },
                     { "url": "discord.com", "on": true },
-                    { "url": "discordapp.com", "on": true },
                 ];
 
                 storage.local.set({ "defaultWebsites": websites });
@@ -55,8 +55,9 @@
                     if (details.frameId === 0 && urlContains(details.url, websites)) {
                         var id = details.tabId;
 
-                        chrome.tabs.update(id, { "url": "html/message.html" });
+                        chrome.tabs.update(id, { "url": "message.html" });
 
+                        /* update the number of blocked attempts */
                         storage.local.get("blocked", function(item) {
                             storage.local.set({ "blocked": item.blocked + 1 });
                             console.log(item);

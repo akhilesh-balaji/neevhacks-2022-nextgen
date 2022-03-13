@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login or Register</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/carbon-components-svelte/css/g100.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <meta charset="utf-8">
+    <title>Login</title>
+
+</head>
+
+<body>
+    <div id="content_container">
+        <div id="form_container">
+            <div id="form_header_container">
+                <h2 id="form_header"> Welcome to Sched.</h2>
+            </div>
+
+            <div id="form_content_container">
+                <div id="form_content_inner_container">
+                    <input type="text" id="full_name" placeholder="Full name">
+                    <input type="email" id="email" placeholder="Email">
+                    <input type="password" id="password" placeholder="Password">
+                    <input type="text" id="birth_year" placeholder="Birth year [DD/MM/YYYY]">
+                    <input type="text" id="gender" placeholder="Gender">
+                    <div id="button_container">
+                        <button onclick="login()">Login</button>
+                        <button onclick="register()">Register</button>
+
+                        <button class="bx--btn bx--btn--primary bx--btn--field" onclick="login()">Login</button>
+                        <button class="bx--btn bx--btn--primary bx--btn--field" onclick="register()">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+<script src="scripts/login.js"></script>
+
+</html>

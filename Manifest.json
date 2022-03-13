@@ -1,25 +1,31 @@
-  {
-      "name": "Sched",
-      "version": "1.0",
-      "description": "Turn your daily todo list into an eye-safe and mentally beneficial schedule.",
-      "browser_action": {
-          "default_popup": "popup.html",
-          "default_icon": {
-              "16": "images/icon.png",
-              "32": "images/icon.png",
-              "48": "images/icon.png",
-              "128": "images/icon.png"
-          }
-      },
-      "background": {
-          "scripts": ["scripts/background.js"],
-          "persistent": false
-      },
-      "icons": {
-          "16": "images/icon.png",
-          "32": "images/icon.png",
-          "48": "images/icon.png",
-          "128": "images/icon.png"
-      },
-      "manifest_version": 2
-  }
+{
+    "name": "Sched",
+    "manifest_version": 2,
+    "version": "1.0",
+    "description": "Turn your daily todo list into an eye-safe and mentally beneficial schedule.",
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/icon.png",
+            "32": "images/icon.png",
+            "48": "images/icon.png",
+            "128": "images/icon.png"
+        }
+    },
+    "background": {
+        "scripts": ["scripts/background.js"],
+        "persistent": false
+    },
+    "icons": {
+        "16": "images/icon.png",
+        "32": "images/icon.png",
+        "48": "images/icon.png",
+        "128": "images/icon.png"
+    },
+    "permissions": [
+        "webNavigation",
+        "tabs",
+        "storage",
+        "notifications"
+    ]
+}

@@ -3,11 +3,69 @@ document.addEventListener('DOMContentLoaded', function() {
     // onClick's logic below:
     computeBtn.addEventListener('click', function() {
         computeSchedule();
+        document.getElementById('computeBtn').disabled = true;
+        document.getElementById("form-task-input").style.display = "none";
+        document.getElementById("schedule-task-input").style.display = "block";
+        embedInTable();
     });
 });
 
+const embedInTable = () => {
+    // let table = document.getElementById("datatable-item");
+    // add a row to table for each task
+    let tableRef = document.getElementById(tableID);
+    let tasks_keys = keys(sortedTasksSct)
+
+    for (let i = 0; i < tasks.length; i++) {
+        let newRow = tableRef.insertRow(-1);
+        // Insert a cell in the row at index 0
+        let newCell0 = newRow.insertCell(0);
+        let newCell1 = newRow.insertCell(1);
+        let newCell2 = newRow.insertCell(2);
+        addRow(table, tasks[i]);
+    }
+    const addRow = (tableID, task) => {
+        // Get a reference to the table
+        // Insert a row at the end of the table
+
+        // Append a text node to the cell
+        let appendtask = document.createTextNode(task);
+        newCell0.appendChild(appendtask);
+        let appendtasktime = document.createTextNode(task);
+        newCell0.appendChild(appendtask);
+    }
+}
+
+// const removeDuplicates = (array) => {
+//     return array.filter((item, index) => array.indexOf(item) === index);
+// }
+
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.message === "on") {
+            chrome.notifications.create(
+                "on", {
+                    "type": "basic",
+                    "iconUrl": "images/icon.png",
+                    "title": "Productivity mode activated",
+                    "message": "You can now browse the web without being blocked by the extension"
+                }
+            );
+        } else if (request.message === "off") {
+            chrome.notifications.create(
+                "off", {
+                    "type": "basic",
+                    "iconUrl": "images/icon.png",
+                    "title": "Productivity mode deactivated",
+                    "message": "You can now browse the web with the extension"
+                }
+            );
+        }
+    }
+);
+
 const computeSchedule = () => {
-    console.log("this is working");
     const task1 = document.getElementById("text-input-item-1").value;
     const task2 = document.getElementById("text-input-item-2").value;
     const task3 = document.getElementById("text-input-item-3").value;
@@ -48,14 +106,17 @@ const computeSchedule = () => {
     console.log(working_time_range_start);
     console.log(working_time_range_end);
 
+    const work1_s = working_time_range_start;
+    const work1_e = break1_time_range_start;
+    const work2_s = break1_time_range_end;
+    const work2_e = break2_time_range_start;
+    const work3_s = break2_time_range_end;
+    const work3_e = working_time_range_end
+
     let tasks = [task1, task2, task3, task4];
     let tasks_sct = [task1_sct, task2_sct, task3_sct, task4_sct];
     let tasks_priority = [task1_priority, task2_priority, task3_priority, task4_priority];
     let tasks_time = [task1_time, task2_time, task3_time, task4_time];
-
-    console.log(tasks);
-    console.log(tasks_sct);
-    console.log(tasks_priority);
 
     let sortedTasks = tasks.sort((a, b) => {
         return tasks_priority.indexOf(a) - tasks_priority.indexOf(b);
@@ -76,14 +137,11 @@ const computeSchedule = () => {
 
     const sortScheduleSct = () => {
         for (let i = 1; i < sortedTasksSct.length; i++) {
-            console.log(i);
             if ((sortedTasksSct[i] != sortedTasksSct[i - 1]) && (schedule.indexOf(sortedTasks[i]) == -1)) {
                 schedule.push(sortedTasks[i]);
             } else {
                 item.push(sortedTasks[i]);
                 for (let j = 1; i + j < sortedTasksSct.length; j++) {
-                    console.log(i + j, sortedTasksSct.length);
-                    console.log(sortedTasksSct[i + j], sortedTasksSct.length);
                     if (sortedTasksSct[i + j] != sortedTasksSct[i - 1]) {
                         if (schedule.indexOf(sortedTasks[i + j]) == -1) {
                             schedule.push(sortedTasks[i + j]);
@@ -96,17 +154,131 @@ const computeSchedule = () => {
             }
         }
     }
+
     sortScheduleSct();
-    console.log(schedule);
 
-    const sortScheduleTime = () => {
+    let sortedTasksTimeSchedule = [];
 
+    for (let q = 0; q < schedule.length; q++) {
+        sortedTasksTimeSchedule.push(tasks_time[tasks.indexOf(schedule[q])]);
     }
 
-    // till when can you do work?
-    // define the set breaks
-    // is there enough time to do it?
+    let sortedTasksSctSchedule = [];
+
+    for (let q = 0; q < schedule.length; q++) {
+        sortedTasksSctSchedule.push(tasks_sct[tasks.indexOf(schedule[q])]);
+    }
+
+    console.log(sortedTasksSctSchedule);
+
+    let session11 = 0;
+    let session1ll = 0;
+    let break_e = 0;
+    let break_m = 0
+
+    const insertBreaks = () => {
+        let schedBreaks = [];
+        let unit_t = (work3_e - work1_s) / 96;
+        for (let x = 0; x < schedule.length; x++) {
+            if (!(sortedTasksTimeSchedule[x] > (1.75))) {
+                // include schedule[x] in the schedule for sortedTasksTimeSchedule[x] / unit_t times
+                for (let y = 0; y < (sortedTasksTimeSchedule[x] / unit_t); y++) {
+                    schedBreaks.push(schedule[x]);
+                }
+                schedBreaks.push("mbreak");
+                schedBreaks.push("mbreak");
+            } else {
+                for (let y = 0; y < ((sortedTasksTimeSchedule[x] / unit_t)); y++) {
+                    schedBreaks.push(schedule[x]);
+                    if (y == Math.ceil((sortedTasksTimeSchedule[x] / unit_t) / 2)) {
+                        schedBreaks.push("mbreak");
+                        schedBreaks.push("mbreak");
+                    }
+                }
+            }
+            // schedBreaks.push(schedule[x]);
+        }
+        for (let x = 0; x < schedBreaks.length; x++) {
+            if (x % 6 == 0 && tasks_sct[tasks.indexOf(schedBreaks[x])]) {
+                schedBreaks[x] = "ebreak";
+            }
+        }
+        // for (let x = 0; x < schedBreaks.length; x++) {
+        //     if (schedBreaks[x] == "mbreak" && schedBreaks[x + 1] == "ebreak") {
+        //         if (schedBreaks[x] == "ebreak" && schedBreaks[x + 1] == "mbreak") {
+        //             schedBreaks.splice(x, 1);
+        //         }
+        //         schedBreaks.splice(x + 1, 1);
+        //     }
+        // }
+        return schedBreaks;
+    }
+    const occurrences = insertBreaks().reduce(function(acc, curr) {
+        return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+    }, {});
+
+    const ebreak_num = occurrences["ebreak"];
+    const mbreak_num = occurrences["mbreak"];
+
+    // if (ebreak_num > 11) {
+    //     function notifyMe() {
+    //         if (!("Notification" in window)) {
+    //             alert("This browser does not support desktop notification");
+    //         } else if (Notification.permission === "granted") {
+    //             var notification = new Notification("You Have Too Much Screen Time, DECREASE IT!");
+    //         } else if (Notification.permission !== "denied") {
+    //             Notification.requestPermission().then(function(permission) {
+    //                 if (permission === "granted") {
+    //                     var notification = new Notification("You Have Too Much Screen Time, DECREASE IT!");
+    //                 }
+    //             });
+    //         }
+    //     }
+    //     notifyMe();
+    // }
+    if (ebreak_num > 11) {
+        chrome.notifications.create(null, {
+            type: "basic",
+            iconUrl: "images/icon.png",
+            title: "Too much screen time!",
+            message: "Please take a break, this much screen time is harmful."
+        }, function(notificationId) {
+            setTimeout(function() {
+                chrome.notifications.clear(notificationId, function() {});
+            }, 5000);
+        });
+    }
+
+    let sum = 0;
+    for (let i = 0; i < sortedTasksTime.length; i++) {
+        sum += sortedTas[i];
+    }
+
+    if (((work3_e - work1_s) - (work2_s - work1_e) - (work3_s - work2_e)) < sum) {
+        chrome.notifications.create(null, {
+            type: "basic",
+            iconUrl: "images/icon.png",
+            title: "Too much screen time!",
+            message: "Please take a break, this much screen time is harmful."
+        }, function(notificationId) {
+            setTimeout(function() {
+                chrome.notifications.clear(notificationId, function() {});
+            }, 5000);
+        });
+    }
+
+
+    console.log(occurrences);
+
+    // sortScheduleTime();
+    // console.log(session11);
+    // console.log(session1ll);
+
+    console.log(insertBreaks());
+
+    // 30 mins -> eye break
+    // task finished -> mindfullness break and eye break
+    // relative break durations
 
     console.log(schedule);
-
 }

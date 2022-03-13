@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
     <title>Settings</title>
-    <link rel="stylesheet" type="text/css" href="/styles/settings.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css" />
 </head>
 
 <body>
@@ -12,25 +13,37 @@
     <div class="page">
         <div class="article">
             <p class="title">Sched Settings</p>
+            <p class="subtitle">If you want make some changes to Sched, this is the place.</p>
             <div>
                 <p class="title1">Default blocked websites</p>
+                <p class="subtitle1">Here are the websites blocked by default. If you want to keep some of them accessible, you just need to uncheck them.</p>
                 <ul id="defaultList" class="list">
                 </ul>
             </div>
             <div>
                 <p class="title1">Custom blocked websites</p>
+                <p class="subtitle1">If you need to block some more distracting websites, just add them here.</p>
+                <table id="customTable">
+                    <tr class="head">
+                        <th class="table-checkbox">
+                        </th>
+                        <th>Website</th>
+                        <th class="table-cross">Delete</th>
+                    </tr>
+                </table>
                 <div>
                     <p class="title2">Add a website</p>
-                    <input id="addingInput" type="text" style="width: 100%;">
+                    <input id="addingInput" type="text" style="width: 100;">
                 </div>
             </div>
             <div>
-                <p>BE PRODUCTIVE!</p>
+                <p class="title1">About</p>
+                <p></p>
             </div>
         </div>
     </div>
 
-    <script src="/js/settings.js"></script>
+    <script src="scripts/settings.js"></script>
 </body>
 
 </html>
