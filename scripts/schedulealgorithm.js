@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("schedule-task-output").style.visibility = "hidden";
+    document.getElementById("schedule-task-output").style.display = "none";
     var computeBtn = document.getElementById('computeBtn');
     // onClick's logic below:
     computeBtn.addEventListener('click', function() {
         computeSchedule();
         document.getElementById('computeBtn').disabled = true;
         document.getElementById("form-task-input").style.display = "none";
+        document.getElementById("schedule-task-output").style.visibility = "visible";
         document.getElementById("schedule-task-output").style.display = "block";
     });
 });
@@ -194,22 +197,6 @@ const computeSchedule = () => {
     const ebreak_num = occurrences["ebreak"];
     const mbreak_num = occurrences["mbreak"];
 
-    // if (ebreak_num > 11) {
-    //     function notifyMe() {
-    //         if (!("Notification" in window)) {
-    //             alert("This browser does not support desktop notification");
-    //         } else if (Notification.permission === "granted") {
-    //             var notification = new Notification("You Have Too Much Screen Time, DECREASE IT!");
-    //         } else if (Notification.permission !== "denied") {
-    //             Notification.requestPermission().then(function(permission) {
-    //                 if (permission === "granted") {
-    //                     var notification = new Notification("You Have Too Much Screen Time, DECREASE IT!");
-    //                 }
-    //             });
-    //         }
-    //     }
-    //     notifyMe();
-    // }
     if (ebreak_num > 11) {
         chrome.notifications.create(null, {
             type: "basic",
@@ -266,14 +253,18 @@ const computeSchedule = () => {
         }, {});
 
         // turn the values in occurrences into an array
-        const values = Object.values(occurrences);
+        const values = Object.keys(occurrences);
+        // console.log(values);
 
-        for (let i = 0; i < values; i++) {
+        for (let i = 0; i < values.length; i++) {
+            console.log("this is a test message, " + i);
             let newRow = tableRef.insertRow(-1);
             let newCell0 = newRow.insertCell(0);
             let newCell1 = newRow.insertCell(1);
             let newCell2 = newRow.insertCell(2);
-            newCell0.appendChild(document.createTextNode(values[i]));
+            newCell0.appendChild(document.createTextNode(values[i] == "mbreak" ? "Mindfulness Break" : values[i] == "ebreak" ? "Eye Break" : values[i]));
+            newCell1.appendChild(document.createTextNode(Math.ceil(((occurrences[(values[i])]) / 96) * 60)));
+            newCell2.appendChild(document.createTextNode(tasks_sct[values[i]]));
         }
     }
 
