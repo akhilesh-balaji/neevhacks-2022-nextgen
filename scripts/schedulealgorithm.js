@@ -254,8 +254,19 @@ const computeSchedule = () => {
 
         // turn the values in occurrences into an array
         const values = Object.keys(occurrences);
-        // console.log(values);
+        const tot_vals = (insertBreaks());
+        console.log(tot_vals);
 
+        // for (let i = 0; i < tot_vals.length; i++) {
+        //     console.log("this is a test message, " + i);
+        //     let newRow = tableRef.insertRow(-1);
+        //     let newCell0 = newRow.insertCell(0);
+        //     let newCell1 = newRow.insertCell(1);
+        //     let newCell2 = newRow.insertCell(2);
+        //     newCell0.appendChild(document.createTextNode(tot_vals[i] == "mbreak" ? "Mindfulness Break" : tot_vals[i] == "ebreak" ? "Eye Break" : tot_vals[i]));
+        //     newCell1.appendChild(document.createTextNode(Math.ceil(((occurrences[(tot_vals[i])]) / 96) * 60)));
+        //     newCell2.appendChild(document.createTextNode(tasks_sct[tot_vals[i]]));
+        // }
         for (let i = 0; i < values.length; i++) {
             console.log("this is a test message, " + i);
             let newRow = tableRef.insertRow(-1);
