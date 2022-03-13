@@ -5,36 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
         computeSchedule();
         document.getElementById('computeBtn').disabled = true;
         document.getElementById("form-task-input").style.display = "none";
-        document.getElementById("schedule-task-input").style.display = "block";
-        embedInTable();
+        document.getElementById("schedule-task-output").style.display = "block";
     });
 });
-
-const embedInTable = () => {
-    // let table = document.getElementById("datatable-item");
-    // add a row to table for each task
-    let tableRef = document.getElementById(tableID);
-    let tasks_keys = keys(sortedTasksSct)
-
-    for (let i = 0; i < tasks.length; i++) {
-        let newRow = tableRef.insertRow(-1);
-        // Insert a cell in the row at index 0
-        let newCell0 = newRow.insertCell(0);
-        let newCell1 = newRow.insertCell(1);
-        let newCell2 = newRow.insertCell(2);
-        addRow(table, tasks[i]);
-    }
-    const addRow = (tableID, task) => {
-        // Get a reference to the table
-        // Insert a row at the end of the table
-
-        // Append a text node to the cell
-        let appendtask = document.createTextNode(task);
-        newCell0.appendChild(appendtask);
-        let appendtasktime = document.createTextNode(task);
-        newCell0.appendChild(appendtask);
-    }
-}
 
 // const removeDuplicates = (array) => {
 //     return array.filter((item, index) => array.indexOf(item) === index);
@@ -213,6 +186,7 @@ const computeSchedule = () => {
         // }
         return schedBreaks;
     }
+
     const occurrences = insertBreaks().reduce(function(acc, curr) {
         return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
     }, {});
@@ -241,7 +215,7 @@ const computeSchedule = () => {
             type: "basic",
             iconUrl: "images/icon.png",
             title: "Too much screen time!",
-            message: "Please take a break, this much screen time is harmful."
+            message: "Please change your time table, this much screen time is harmful."
         }, function(notificationId) {
             setTimeout(function() {
                 chrome.notifications.clear(notificationId, function() {});
@@ -251,15 +225,15 @@ const computeSchedule = () => {
 
     let sum = 0;
     for (let i = 0; i < sortedTasksTime.length; i++) {
-        sum += sortedTas[i];
+        sum += sortedTasksTime.length[i];
     }
 
     if (((work3_e - work1_s) - (work2_s - work1_e) - (work3_s - work2_e)) < sum) {
         chrome.notifications.create(null, {
             type: "basic",
             iconUrl: "images/icon.png",
-            title: "Too much screen time!",
-            message: "Please take a break, this much screen time is harmful."
+            title: "Does not match your working time",
+            message: "Please change the values for your working time or time per task. Note that you must write down how much time you will spend TODAY, not for the ENTIRE TASK."
         }, function(notificationId) {
             setTimeout(function() {
                 chrome.notifications.clear(notificationId, function() {});
@@ -281,4 +255,27 @@ const computeSchedule = () => {
     // relative break durations
 
     console.log(schedule);
+
+    const embedInTable = () => {
+        // let table = document.getElementById("datatable-item");
+        // add a row to table for each task
+        let tableRef = document.getElementById("datatable-item");
+
+        const occurrences = insertBreaks().reduce(function(acc, curr) {
+            return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+        }, {});
+
+        // turn the values in occurrences into an array
+        const values = Object.values(occurrences);
+
+        for (let i = 0; i < values; i++) {
+            let newRow = tableRef.insertRow(-1);
+            let newCell0 = newRow.insertCell(0);
+            let newCell1 = newRow.insertCell(1);
+            let newCell2 = newRow.insertCell(2);
+            newCell0.appendChild(document.createTextNode(values[i]));
+        }
+    }
+
+    embedInTable();
 }
